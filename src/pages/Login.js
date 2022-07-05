@@ -42,6 +42,7 @@ class Login extends React.Component {
     const { userName, buttonDisabled, loading, redirectSearch } = this.state;
     return (
       <div data-testid="page-login">
+        { redirectSearch && <Redirect to="/search" /> }
         { loading ? <Loading /> : (
           <form>
             <label htmlFor="login-name-input">
@@ -63,7 +64,6 @@ class Login extends React.Component {
             </button>
           </form>
         )}
-        { redirectSearch && <Redirect to="/search" /> }
       </div>
     );
   }
