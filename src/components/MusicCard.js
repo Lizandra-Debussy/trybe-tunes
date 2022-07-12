@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 class MusicCard extends React.Component {
   render() {
-    const { album } = this.props;
-    console.log(album);
+    const { album, saveSongOnStorage, favoriteSongs } = this.props;
     return (
       <section>
         {album.slice(1).map(({ trackName, previewUrl, trackId }) => (
@@ -17,6 +16,19 @@ class MusicCard extends React.Component {
               <code>audio</code>
               .
             </audio>
+            <label htmlFor={ trackId }>
+              <input
+                id={ trackId }
+                name={ trackId }
+                type="checkbox"
+                checked={ favoriteSongs.some(
+                  (musica) => Number(musica.trackId) === trackId,
+                ) }
+                data-testid={ `checkbox-music-${trackId}` }
+                onChange={ saveSongOnStorage }
+              />
+              Favorita
+            </label>
           </div>
         ))}
       </section>
