@@ -38,6 +38,8 @@ class MusicCard extends React.Component {
 
 MusicCard.propTypes = {
   album: PropTypes.arrayOf(PropTypes.object).isRequired,
+  saveSongOnStorage: PropTypes.func.isRequired,
+  favoriteSongs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default MusicCard;
