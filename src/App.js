@@ -10,9 +10,6 @@ import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 
 class App extends React.Component {
-  // constructor() {
-  //   super();
-
   render() {
     return (
       <div>

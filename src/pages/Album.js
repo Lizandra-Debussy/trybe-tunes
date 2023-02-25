@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
 
 class Album extends React.Component {
@@ -35,15 +35,26 @@ class Album extends React.Component {
   }
 
   saveSongOnStorage = async ({ target }) => {
-    const { name } = target;
+    const { name, checked } = target;
     const { album } = this.state;
+
     this.setState({ statusLoading: true });
     const music = album.slice(1).find(({ trackId }) => trackId === Number(name));
-    await addSong(music);
-    this.setState((prevState) => ({
-      favoriteSongs: [...prevState.favoriteSongs, music],
-    }));
-    this.setState({ statusLoading: false });
+
+    if (checked) {
+      await addSong(music);
+      this.setState((prevState) => ({
+        favoriteSongs: [...prevState.favoriteSongs, music],
+      }));
+      this.setState({ statusLoading: false });
+    } else {
+      this.setState({ statusLoading: true });
+      await removeSong(music);
+      this.setState(({
+        favoriteSongs: [...await getFavoriteSongs()],
+      }));
+      this.setState({ statusLoading: false });
+    }
   }
 
   render() {
